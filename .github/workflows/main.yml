@@ -13,9 +13,21 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+
       - name: install packages 
         run: npm install
       - name: run sign
         run: node index.js
         env:
           COOKIE_STRING: ${{secrets.COOKIE_STRING}}
+
