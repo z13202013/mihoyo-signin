@@ -8,6 +8,7 @@ const forumSignIn = require('./lib/mihoyo/forum-sign');
 const forumPostList = require('./lib/mihoyo/forum-post-list');
 const forumPostDetail = require('./lib/mihoyo/forum-post-detail');
 const forumPostVote = require('./lib/mihoyo/forum-post-vote');
+const forumPostUnvote = require('./lib/mihoyo/forum-post-unvote');
 const forumPostShare = require('./lib/mihoyo/forum-post-share');
 const { post } = require('superagent');
 
@@ -32,6 +33,10 @@ const init = async function() {
       await utils.randomSleepAsync();
 
       await forumPostVote(post);
+      
+      await utils.randomSleepAsync();
+      
+      await forumPostUnvote(post);
 
       await utils.randomSleepAsync();
     });
